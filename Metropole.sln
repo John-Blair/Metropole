@@ -5,7 +5,14 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metropole", "Metropole\Metropole.csproj", "{9E9F8A58-C56C-4F34-A8CA-FA8D1A0572AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metropole.Tests", "Metropole.Tests\Metropole.Tests.csproj", "{D61D4A52-E018-4382-868E-D5D07B1BE48B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F3C347F-E5F5-428C-B53B-E2EA2B216683}"
+	ProjectSection(SolutionItems) = preProject
+		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metropole.Helpers", "Metropole.Helpers\Metropole.Helpers.csproj", "{BD12F4F7-23EA-4BBD-9185-6FF5CDF7224B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetropoleUnitTests", "EmailUnitTests\MetropoleUnitTests.csproj", "{6AA15AB1-68B7-4DB5-AA41-C16CDF9DF557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +24,14 @@ Global
 		{9E9F8A58-C56C-4F34-A8CA-FA8D1A0572AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E9F8A58-C56C-4F34-A8CA-FA8D1A0572AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E9F8A58-C56C-4F34-A8CA-FA8D1A0572AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D61D4A52-E018-4382-868E-D5D07B1BE48B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D61D4A52-E018-4382-868E-D5D07B1BE48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D61D4A52-E018-4382-868E-D5D07B1BE48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D61D4A52-E018-4382-868E-D5D07B1BE48B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD12F4F7-23EA-4BBD-9185-6FF5CDF7224B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD12F4F7-23EA-4BBD-9185-6FF5CDF7224B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD12F4F7-23EA-4BBD-9185-6FF5CDF7224B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD12F4F7-23EA-4BBD-9185-6FF5CDF7224B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA15AB1-68B7-4DB5-AA41-C16CDF9DF557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA15AB1-68B7-4DB5-AA41-C16CDF9DF557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA15AB1-68B7-4DB5-AA41-C16CDF9DF557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA15AB1-68B7-4DB5-AA41-C16CDF9DF557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

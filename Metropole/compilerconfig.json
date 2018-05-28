@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/Debug.css",
+    "inputFile": "Content/Debug.less"
+  },
+  {
+    "outputFile": "Content/less/bootstrap-overrides.css",
+    "inputFile": "Content/less/bootstrap-overrides.less"
+  }
+]

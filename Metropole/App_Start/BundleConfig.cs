@@ -25,7 +25,9 @@ namespace Metropole
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/less/bootstrap-overrides.css",
+                      "~/Content/site.css",
+                      "~/Content/less/debug.css"));
         }
     }
 }

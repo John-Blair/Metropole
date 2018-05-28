@@ -1,6 +1,5 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    margin-top: 56px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +20,59 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+
+.bg-metropole {
+   background-image: url("/Media/metropole-1110x550.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+
+}
+
+/* ensure backround image does not get cropped by coverage.*/
+.hero-height {
+    height:550px;
+}
+
+.hero-container {
+   background-image: url("/Media/metropole-1110x550.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   height:550px;
+   position: relative;
+
+}
+
+.hero-action {
+    background-color:#343a40;
+    background-color:rgba(52, 58, 64, 0.8);
+    color:white /* rgba(255, 255, 255, 0.5);*/ ;
+    height: 200px;
+    position:absolute;
+    bottom: 150px;
+    left: 50px;
+    
+}
+
+/* Prevent hero action spilling out of container below md */
+@media (max-width: 767px) {
+    .hero-action {
+        left: 0px;
+    }
+}
+
+h1 , h2 {
+    padding-top:20px;
+}
+
+.field-validation-error{
+    color: red;
+
+}
+
+
+.checkbox-inline {
+    width: 50px;
+    display:inline !important;
 }

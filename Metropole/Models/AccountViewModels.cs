@@ -79,6 +79,16 @@ namespace Metropole.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Add My Phone Number to the \"Metropole\" WhatsApp group")]
+        public bool WhatsAppMember { get; set; }
+
+        [Display(Name = "Phone Number")]
+        [RegularExpression(@"^(\d{11})$", ErrorMessage = "Mobile numbers should be 11 digits.")]
+        public string PhoneNumber { get; set; }
+
+        [Display(Name = "Subscribe to \"Metropole\" news articles.")]
+        public bool NewsSubscription { get; set; }
     }
 
     public class ResetPasswordViewModel

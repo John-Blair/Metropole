@@ -1,0 +1,74 @@
+﻿/*
+    Customised the nav bar to keep to the width of the container (and not stretch across the entire screen).
+    This meant adding a container as an immediate child of the navbar.
+    Now the background colour would show through into the padding of the container so another
+    child div was added to restrict the background colour by not spilling into padding area of the parent.
+    Now this had the side effect that child items were no longer flex items - so the fixes applied to the inner div
+    wrapper were:
+    bg-dark : moved from the navbar to contain background colour to content width.
+    display-flex, justify-content flex-wrap : navbar bhaviours we want to retain for the menu options.
+                justify-content and flex-wrap were important for getting mobile menu to drop down in correct place.
+    flex-grow : This is a flex item of a parent container as well as a flex container itself. As
+                a flex item it should fill all the horizontal space.
+    top-bottom-padding-8,  no-top-bottom-padding : Removed padding from the nav and applied here to get background colour with some
+                top and bottom padding. 
+
+*/
+.flex-grow{
+    flex-grow:1;
+}
+
+.display-flex{
+   display:flex;
+}
+
+.flex-wrap{
+    flex-wrap:wrap;
+}
+
+// Application name no longer hits the container wall.
+.navbar-nav > li.first{
+    padding-left:15px;
+}
+
+.justify-content{
+    justify-content:space-between;
+}
+
+.no-top-bottom-padding{
+    padding-top:0px !important;
+    padding-bottom: 0px !important;
+}
+
+
+.top-bottom-padding-8{
+    padding-top:8px ;
+    padding-bottom: 8px;
+}
+
+.padding-left-8 {
+    padding-left:8px;
+}
+.padding-left-10 {
+    padding-left:10px;
+}
+
+.padding-left-15 {
+    padding-left:15px;
+}
+
+// At the md breakpoint the padding had been removed making the background colour stick out - apply correction.
+@media (max-width: 767.98px) {
+    .navbar-expand-md > .container {
+        padding-right: 15px ;
+        padding-left: 15px;
+    }
+}
+
+// Remove extraneous padding at smaller breakpoints.
+@media (max-width: 576px) {
+    .navbar-expand-md > .container {
+        padding-right: 0px ;
+        padding-left: 0px;
+    }
+}

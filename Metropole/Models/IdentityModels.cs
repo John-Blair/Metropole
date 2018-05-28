@@ -16,6 +16,10 @@ namespace Metropole.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public bool NewsSubscription { get; set; }
+        public bool WhatsAppMember { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
