@@ -17,11 +17,21 @@
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
-select,
-textarea {
+select
+ {
     max-width: 280px;
 }
 
+/* Allow for wider text input for multi line control.*/
+textarea {
+    max-width: 560px;
+   
+}
+
+/* Control number of lines on display */
+.text-area {
+     min-height:500px;
+}
 
 .bg-metropole {
    background-image: url("/Media/metropole-1110x550.png");

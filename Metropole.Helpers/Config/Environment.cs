@@ -7,33 +7,44 @@ using System.Collections.Specialized;
 
 namespace Metropole.Helpers
 {
-    public sealed class EnvironmentSingleton
+    public sealed class Environment
     {
         private static readonly NameValueCollection settingCollection =
                (NameValueCollection)ConfigurationManager.GetSection("Environment");
-        private static readonly EnvironmentSingleton instance = new EnvironmentSingleton();
+        private static readonly Environment instance = new Environment();
 
         // Explicit static constructor to tell C# compiler
         // not to mark type as beforefieldinit
-        static EnvironmentSingleton()
+        static Environment()
         {
         }
 
-        private string _EmailApiKey;
-        public string EmailApiKey {
-            get {
-                return _EmailApiKey ?? 
-                    (_EmailApiKey = settingCollection["EmailApiKey"] ?? "");
+       
+
+        private bool _DebugMenuInit;
+        private bool _DebugMenu;
+        public bool DebugMenu
+        {
+            get
+            {
+                if (!_DebugMenuInit)
+                {
+                    _DebugMenuInit = true;
+                    _DebugMenu = settingCollection["DebugMenu"].ToBoolean();
+
+                }
+
+                return _DebugMenu;
             }
         }
 
 
-        private EnvironmentSingleton()
+        private Environment()
         {
 
         }
 
-        public static EnvironmentSingleton Instance
+        public static Environment Instance
         {
             get
             {

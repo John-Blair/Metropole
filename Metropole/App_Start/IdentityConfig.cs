@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Metropole.Models;
+using Metropole.Helpers;
 
 namespace Metropole
 {
@@ -19,7 +20,12 @@ namespace Metropole
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+
+
+            return Task.Run(() =>
+            {
+                GMailService.SendMail(message.Destination, message.Subject, message.Body);
+            });
         }
     }
 

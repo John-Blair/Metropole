@@ -23,7 +23,7 @@ namespace Metropole.Helpers
 
         private async Task SendEmailAsync(IdentityMessage message)
         {
-            var apiKey = EnvironmentSingleton.Instance.EmailApiKey;
+            var apiKey = EnvironmentSecret.Instance.EmailApiKey;
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("admin@sendgrid.com", "Metropole Admin");
             var subject = message.Subject + ":JB3";
