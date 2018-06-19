@@ -19,7 +19,7 @@
 input,
 select
  {
-    max-width: 280px;
+    max-width: 380px;
 }
 
 /* Allow for wider text input for multi line control.*/

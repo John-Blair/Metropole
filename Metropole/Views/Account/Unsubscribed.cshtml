@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Unsubscribed";
+}
+
+<h2>@ViewBag.Title</h2>
+<div>
+    <p>
+        You have been unsubscribed.<br />
+        Sorry to see you go. <br />
+        If you have had any issues with the site please report them to the
+        <strong>@Html.ActionLink("Administrator", "EmailAdmin", "Home")</strong><br/>
+        If you want to start receiving emails again you may resubscribe by opting back into News Subscription @Html.ActionLink("here", "ManageProfile", "Manage")
+    </p>
+</div>

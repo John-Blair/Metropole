@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Metropole.Helpers;
 
 namespace Metropole.Models
 {
@@ -20,7 +21,12 @@ namespace Metropole.Models
         public bool NewsSubscription { get; set; }
         public bool WhatsAppMember { get; set; }
 
+        public int AddressId { get; set; }
+        public Address Address { get; set; }
+
     }
+
+   
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

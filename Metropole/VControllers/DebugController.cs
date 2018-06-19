@@ -1,5 +1,6 @@
 ﻿using Metropole.Helpers;
 using Metropole.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,9 @@ namespace Metropole.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult TestEmail(TestEmailViewModel model) {
 
-            GMailService.SendMail(model.EmailTo, model.Subject, model.Body);
+            var userId = User.Identity.GetUserId();
+
+            GMailService.SendMail(model.EmailTo, model.Subject, model.Body, userId);
 
 
             return View();

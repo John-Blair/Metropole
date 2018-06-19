@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Metropole.Models;
+using Metropole.Helpers;
 
 namespace Metropole.Controllers
 {
@@ -74,6 +75,62 @@ namespace Metropole.Controllers
             };
             return View(model);
         }
+
+        public ActionResult ManageProfile()
+        {
+            var userId = User.Identity.GetUserId();
+            ApplicationUser u = UserManager.FindById(userId);
+
+            return View(u);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ManageProfile(ApplicationUser model, string action)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser u = UserManager.FindById(model.Id);
+
+                if (action == "Delete")
+                {
+                    UserManager.Delete(u);
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+                }
+                else
+                {
+
+
+                    if (model.WhatsAppMember && (u.WhatsAppMember != model.WhatsAppMember) && (model.PhoneNumber.Length > 0) )
+                    {
+                        // New request to join whats app group.
+                        GMailService.SendMailNewWhatsAppMember(u.UserName, model.PhoneNumber);
+                    }
+
+                    u.WhatsAppMember = model.WhatsAppMember;
+                    u.PhoneNumber = model.PhoneNumber;
+                    u.NewsSubscription = model.NewsSubscription;
+                    if (model.AddressId != -1)
+                    {
+                        u.AddressId = model.AddressId;
+                    }
+
+
+
+                    UserManager.Update(u);
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            return View(model);
+        }
+
+
+
+
+
 
         //
         // POST: /Manage/RemoveLogin

@@ -1,0 +1,76 @@
+﻿@model Metropole.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Manage Profile";
+    var addresses = new AddressRepository(new MetropoleContext()).Addresses();
+
+}
+
+<h2>Manage Profile</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+       
+        <hr />
+       
+        <div class="form-group">
+            <label class="control-label col-md-2" for="PhoneNumber">Phone Number</label>
+
+           
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+       
+
+        @Html.HiddenFor(model => model.Id)
+
+        
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="NewsSubscription">News Subscription</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.NewsSubscription)
+                    @Html.ValidationMessageFor(model => model.NewsSubscription, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="WhatsAppMember">Whats App Member</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.WhatsAppMember)
+                    @Html.ValidationMessageFor(model => model.WhatsAppMember, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="AddressId">Address</label>
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.AddressId, new SelectList(addresses, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.AddressId)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-5">
+                    <input type="submit" value="Save" name="action" class="btn btn-default" />
+                </div>
+
+                <div class="col-md-5">
+                    <input type="submit" value="Delete" name="action" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

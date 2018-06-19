@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Metropole.Models
 {
@@ -77,7 +78,7 @@ namespace Metropole.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Add My Phone Number to the \"Metropole\" WhatsApp group")]
@@ -89,6 +90,13 @@ namespace Metropole.Models
 
         [Display(Name = "Subscribe to \"Metropole\" news articles.")]
         public bool NewsSubscription { get; set; }
+
+
+        [Required]
+        [Display(Name = "Address")]
+        public string AddressId { get; set; }
+        public IEnumerable<SelectListItem> Addresses { get; set; }
+
     }
 
     public class ResetPasswordViewModel
@@ -106,7 +114,7 @@ namespace Metropole.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

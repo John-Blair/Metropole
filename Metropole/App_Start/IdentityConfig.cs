@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Metropole.Models;
 using Metropole.Helpers;
+using System.Web.Mvc;
 
 namespace Metropole
 {
@@ -24,6 +25,9 @@ namespace Metropole
 
             return Task.Run(() =>
             {
+                
+
+
                 GMailService.SendMail(message.Destination, message.Subject, message.Body);
             });
         }

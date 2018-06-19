@@ -35,6 +35,14 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(m => m.AddressId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.AddressId, new SelectList(Model.Addresses, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.AddressId)
+        </div>
+    </div>
+
+    <div class="form-group">
       
         @Html.CheckBoxFor(m => m.WhatsAppMember, new { @class = "form-control checkbox-inline" })
         @Html.LabelFor(m => m.WhatsAppMember, new { @class = " control-label" })

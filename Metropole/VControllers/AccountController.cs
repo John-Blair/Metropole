@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Metropole.Models;
+using Metropole.Helpers;
 
 namespace Metropole.Controllers
 {
@@ -27,6 +28,10 @@ namespace Metropole.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
+
+
+       
+
 
         public ApplicationSignInManager SignInManager
         {
@@ -158,7 +163,10 @@ namespace Metropole.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            RegisterViewModel model = new RegisterViewModel();
+            model.Addresses = new AddressRepository(new MetropoleContext()).Addresses();
+
+            return View(model);
         }
 
         //
@@ -170,11 +178,22 @@ namespace Metropole.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                // Handle unselected address - use other.
+                if (model.AddressId == "-1")
+                {
+                    model.Addresses = new AddressRepository(new MetropoleContext()).Addresses();
+                    var other = model.Addresses.First(m => m.Text.Contains("Other"));
+                    model.AddressId = other.Value;
+                }
+
+
                 var user = new ApplicationUser { UserName = model.Email,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
                     WhatsAppMember = model.WhatsAppMember,
-                    NewsSubscription = model.NewsSubscription
+                    NewsSubscription = model.NewsSubscription,
+                    AddressId = Convert.ToInt32(model.AddressId)
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -212,6 +231,31 @@ namespace Metropole.Controllers
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
+
+        [AllowAnonymous]
+        public ActionResult Unsubscribe(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return View("Unsubscribed");
+            }
+
+            ApplicationUser u = UserManager.FindById(userId);
+
+            if (u == null)
+            {
+                return View("Unsubscribed");
+
+            }
+
+            //Unsubscribe from further emails.
+            u.NewsSubscription = false;
+
+            UserManager.Update(u);
+
+            return View("Unsubscribed");
         }
 
         //
