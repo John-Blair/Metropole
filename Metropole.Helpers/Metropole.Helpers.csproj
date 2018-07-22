@@ -39,7 +39,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -66,15 +70,45 @@
   <ItemGroup>
     <Compile Include="Config\EnvironmentSecret.cs" />
     <Compile Include="Config\Environment.cs" />
-    <Compile Include="Extensions\Class1.cs" />
+    <Compile Include="EntityFramework\Address.cs" />
+    <Compile Include="EntityFramework\Answer.cs" />
+    <Compile Include="EntityFramework\IdentityModels.cs" />
+    <Compile Include="EntityFramework\MetropoleContext.cs" />
+    <Compile Include="EntityFramework\Question.cs" />
+    <Compile Include="EntityFramework\Response.cs" />
+    <Compile Include="EntityFramework\Survey.cs" />
+    <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\IQueryableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Migrations\201805231514484_InitialCreate.cs" />
+    <Compile Include="Migrations\201805231514484_InitialCreate.Designer.cs">
+      <DependentUpon>201805231514484_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805281850181_Register.cs" />
+    <Compile Include="Migrations\201805281850181_Register.Designer.cs">
+      <DependentUpon>201805281850181_Register.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806181821127_address.cs" />
+    <Compile Include="Migrations\201806181821127_address.Designer.cs">
+      <DependentUpon>201806181821127_address.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806181915020_address1.cs" />
+    <Compile Include="Migrations\201806181915020_address1.Designer.cs">
+      <DependentUpon>201806181915020_address1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806201419188_survey.cs" />
+    <Compile Include="Migrations\201806201419188_survey.Designer.cs">
+      <DependentUpon>201806201419188_survey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806260755070_CreatedByUserID.cs" />
+    <Compile Include="Migrations\201806260755070_CreatedByUserID.Designer.cs">
+      <DependentUpon>201806260755070_CreatedByUserID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Address.cs" />
     <Compile Include="Repositories\AddressRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\MetropoleContext.cs" />
     <Compile Include="Services\GmailService.cs" />
     <Compile Include="Services\EmailService.cs" />
   </ItemGroup>
@@ -82,7 +116,30 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805231514484_InitialCreate.resx">
+      <DependentUpon>201805231514484_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805281850181_Register.resx">
+      <DependentUpon>201805281850181_Register.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181821127_address.resx">
+      <DependentUpon>201806181821127_address.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806181915020_address1.resx">
+      <DependentUpon>201806181915020_address1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806201419188_survey.resx">
+      <DependentUpon>201806201419188_survey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806260755070_CreatedByUserID.resx">
+      <DependentUpon>201806260755070_CreatedByUserID.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityFramework\Data\addresses.sql" />
+    <Content Include="EntityFramework\Data\addresses95.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

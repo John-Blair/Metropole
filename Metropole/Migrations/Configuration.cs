@@ -1,19 +1,19 @@
 namespace Metropole.Migrations
 {
+    using Helpers;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Metropole.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<MetropoleContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Metropole.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(Metropole.Models.ApplicationDbContext context)
+        protected override void Seed(MetropoleContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Metropole.Helpers.Survey>
+
+
+@{
+    ViewBag.Title = "Reports";
+    var userId = User.Identity.GetUserId();
+
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/models")
+
+    <script type="text/javascript">
+        $(function () {
+            ko.applyBindings(new SurveyListModel(), $('#survey-list')[0]);
+        })
+    </script>
+}
+
+<div class="page-header">
+    
+    <h2>Survey Results</h2>
+</div>
+
+<div class="survey-list container table-striped ">
+
+    <div class="row">
+
+        <div class="col-md d-none d-md-inline-block">Survey</div>
+       
+        <div class="col-md d-none d-md-inline-block">Status</div>
+        <div class="col-md d-none d-md-inline-block">Responses</div>
+       
+    </div>
+
+
+
+    @foreach (var item in Model)
+            {
+        <div class="row">
+            <div class="col-md">
+                <div>@item.Name</div>
+                <div class="mt-1">
+                    @item.Questions.Count()
+                    @if (item.Questions.Count() != 1)
+                    {
+                        <text> Questions</text>
+
+                    }
+                    else
+                    {
+                        <text> Question</text>
+}
+
+                </div>
+            </div>
+           
+
+           
+            <div class="col-md">
+                @Html.DisplayFor(x => item.IsActive, "IsActive")
+            </div>
+
+            <div class="col-md">
+                <div>
+                    <a class="btn btn-secondary" href="@Url.Action("Survey", "Reports", new { id = item.Id })">
+                        <i class="fas fa-list"></i> Responses
+                    </a>
+
+                </div>
+                <div class="mt-1">
+                    @item.Responses.Count()
+                    @if (item.Responses.Count() != 1)
+                    {
+                        <text> Responses</text>
+
+                    }
+                    else
+                    {
+                        <text> Response</text>
+                    }
+
+                </div>
+            </div>
+           
+        </div>
+    }
+</div>

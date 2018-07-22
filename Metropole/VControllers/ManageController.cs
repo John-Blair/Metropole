@@ -112,6 +112,7 @@ namespace Metropole.Controllers
                     u.WhatsAppMember = model.WhatsAppMember;
                     u.PhoneNumber = model.PhoneNumber;
                     u.NewsSubscription = model.NewsSubscription;
+                    u.Name = model.Name;
                     if (model.AddressId != -1)
                     {
                         u.AddressId = model.AddressId;

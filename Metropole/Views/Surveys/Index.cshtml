@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Metropole.Helpers.Survey>
+
+
+@{
+    ViewBag.Title = "Surveys";
+    var userId = User.Identity.GetUserId();
+
+    // Allow edit and delete if user owns survey and no responses.
+    var anyEditOrDelete = Model.Any(m => m.CreatedByUserId == userId && (m.Responses.Count() == 0));
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/models")
+
+    <script type="text/javascript">
+        $(function () {
+            ko.applyBindings(new SurveyListModel(), $('#survey-list')[0]);
+        })
+    </script>
+}
+
+<div class="page-header">
+    <a class="btn btn-success float-right" href="@Url.Action("Create")">
+        <i class="fas fa-plus"></i> New Survey
+    </a>
+    <h2>Surveys <small>Add or take survey</small></h2>
+</div>
+
+<div class="survey-list container table-striped ">
+
+    <div class="row">
+
+        <div class="col-md d-none d-md-inline-block">Survey</div>
+        <div class="col-md d-none d-md-inline-block">Take Survey</div>
+        @if (anyEditOrDelete)
+        {
+            <div class="col-md d-none d-md-inline-block">Edit</div>
+
+        }
+        <div class="col-md d-none d-md-inline-block">Status</div>
+        <div class="col-md d-none d-md-inline-block">Responses</div>
+        @if (anyEditOrDelete)
+        {
+            <div class="col-md d-none d-md-inline-block">Delete</div>
+        }
+    </div>
+
+
+
+    @foreach (var item in Model)
+            {
+        <div class="row">
+            <div class="col-md">
+                <div>@item.Name</div>
+                <div class="mt-1">
+                    @item.Questions.Count()
+                    @if (item.Questions.Count() != 1)
+                    {
+                        <text> Questions</text>
+
+                    }
+                    else
+                    {
+                        <text> Question</text>
+}
+
+                </div>
+            </div>
+            <div class="col-md">
+                <a class="btn btn-secondary" href="@Url.Action("Create", "Responses", new { surveyId = item.Id })"><i class="fas fa-list-ul"></i> Take Survey</a>
+            </div>
+
+            @if (anyEditOrDelete)
+            {
+                <div class="col-md">
+                    @if (item.CreatedByUserId == userId && (item.Responses.Count() == 0))
+                    {
+                        <a class="btn btn-secondary" href="@Url.Action("Edit", new { id = item.Id })">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    }
+                </div>
+            }
+            <div class="col-md">
+                @Html.DisplayFor(x => item.IsActive, "IsActive")
+            </div>
+            <div class="col-md">
+                <div>
+                    <a class="btn btn-secondary" href="@Url.Action("Survey", "Reports", new { id = item.Id })">
+                        <i class="fas fa-list"></i> Responses
+                    </a>
+                </div>
+                <div class="mt-1">
+                    @item.Responses.Count()
+                    @if (item.Responses.Count() != 1)
+                    {
+                        <text> Responses</text>
+
+                    }
+                    else
+                    {
+                        <text> Response</text>
+                    }
+
+                </div>
+            </div>
+            @if (anyEditOrDelete)
+            {
+                <div class="col-md">
+                    @if (item.CreatedByUserId == userId && (item.Responses.Count() == 0))
+                    {
+                        <a class="btn btn-secondary" href="@Url.Action("Delete", new { id = item.Id })" data-bind="click: destroy">
+                            <i class="fas fa-trash"></i> Delete
+                        </a>
+                    }
+
+                </div>
+            }
+        </div>
+    }
+</div>

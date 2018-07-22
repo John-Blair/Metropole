@@ -1,0 +1,78 @@
+﻿@model Metropole.Models.ReportViewModel
+
+@{
+    ViewBag.Title = "Survey Report";
+}
+
+
+<div class="page-header">
+    <h2>Survey Report: <small>@Model.Survey.Name</small></h2>
+</div>
+<h4 class="well well-small">Response Summary</h4>
+  
+<div class="survey-report container table-striped ">
+
+   
+    <div class="row">
+        <div class="col-md-3">
+            <div><strong>Flat Responses</strong></div>
+
+        </div>
+        <div class="col-md-2">
+            @Model.Survey.Responses.Count()
+        </div>
+        <div class="col-md-7">
+            Note: There can be multiple residents per flat.<br />The last submitted survey for the flat is taken as the flat response.
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div><strong>Total Flats</strong></div>
+        </div>
+        <div class="col-md-9">
+            @Model.TotalFlats
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div><strong>Quorum</strong></div>
+        </div>
+        <div class="col-md-2">
+            @Model.Quorum
+        </div>
+        <div class="col-md-7">
+            Note: One third of the Proprietors are required to be represented to form a quorum.
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div><strong>Quorum Formed?</strong></div>
+        </div>
+        <div class="col-md-9">
+            @if (Model.QuorumStatus)
+            {
+                <span>Yes</span>
+            }
+            else
+            {
+                <span>No</span>
+            }
+        </div>
+
+    </div>
+    
+
+</div>
+<div class="row">
+    <div class="col">
+        @Html.DisplayFor(x => x.Questions, "Questions")
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+       @Html.DisplayFor(x => x.Survey.Responses, "History")
+    </div>
+</div>

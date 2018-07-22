@@ -1,0 +1,159 @@
+﻿@model Metropole.Helpers.Survey
+
+<div class="page-header">
+    <h2>@ViewData["title"]</h2>
+</div>
+
+<form id="survey-form" action="@ViewData["url"]" method="post">
+    <h4 class="well well-small">Survey</h4>
+
+    <div class="row mb-2">
+        <div class="col-md-6">
+            @Html.LabelFor(x => x.Name, new { @class = "w-100" })
+            @Html.TextBoxFor(x => x.Name, new { @class = "w-100" , required="required"})
+            <div>
+            @Html.ValidationMessageFor(x => x.Name)
+            </div>
+            
+        </div>
+        <div class="col-md-3">
+
+            @Html.LabelFor(x => x.StartDate, new { @class = "w-100" })
+            @Html.EditorFor(x => x.StartDate)
+
+        </div>
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(x => x.EndDate, new { @class = "w-100" })
+            @Html.EditorFor(x => x.EndDate)
+        </div>
+    </div>
+
+
+    <h4 class="well well-small">
+        <button class="btn btn-sm float-right" data-bind="click: newQuestion">
+            <i class="fas fa-plus"></i> Add Question
+        </button>
+        Questions
+    </h4>
+
+    <p data-bind="visible: !hasQuestions()">
+        <span class="label label-info">Heads up!</span>
+        You haven't added any questions.
+    </p>
+
+    <div id="questions" data-bind="visible: hasQuestions, foreach: { data: questions,}">
+        <div class="accordion-group">
+            <div class="row accordion-heading">
+                <div class="col-md-6 accordion-toggle">
+                    <a data-parent="#questions" data-toggle="collapse" data-bind="attr: { href: '#item'+$index() }">
+                        <span data-bind="text: title"></span>
+                    </a>
+                </div>
+                <div class="col-md-1 accordion-toggle text-center">
+                    <span class="muted" data-bind="text: type"></span>
+                </div>
+                <div class="col-md-1 accordion-toggle text-center">
+                    <small class="text-success" data-bind="visible: isActive">Active</small>
+                    <small class="text-error" data-bind="visible: !isActive()">Inactive</small>
+                </div>
+                <div class="col-md-2 accordion-toggle text-right">
+                    <div class="btn-group">
+                        <a class="btn btn-small" href="#" data-bind="click: $root.moveUp"><i class="fas fa-arrow-up"></i></a>
+                        <a class="btn btn-small" href="#" data-bind="click: $root.moveDown"><i class="fas fa-arrow-down"></i></a>
+                    </div>
+                    <div class="btn-group text-left">
+                        <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-wrench"></i><span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu float-right">
+                            <li>
+                                <a href="#" data-bind="click: $root.editQuestion">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                            </li>
+                            <li data-bind="visible: !isActive()">
+                                <a href="#" data-bind="click: enable">
+                                    <i class="far fa-check-circle"></i> Enable
+                                </a>
+                            </li>
+                            <li data-bind="visible: isActive">
+                                <a href="#" data-bind="click: disable">
+                                    <i class="fas fa-ban"></i> Disable
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse" data-bind="attr: { id: 'item'+$index() }">
+                <div class="accordion-inner" data-bind="html: body"></div>
+            </div>
+        </div>
+
+        <input type="hidden" data-bind="attr: { name: 'Questions['+$index()+'].Id', value: id }" />
+        <input type="hidden" data-bind="attr: { name: 'Questions['+$index()+'].Title', value: title }" />
+        <input type="hidden" data-bind="attr: { name: 'Questions['+$index()+'].Type', value: type }" />
+        <input type="hidden" data-bind="attr: { name: 'Questions['+$index()+'].Body', value: body }" />
+        <input type="hidden" data-bind="attr: { name: 'Questions['+$index()+'].Priority', value: $index() }" />
+        <input type="hidden" data-bind="attr: { name: 'Questions['+$index()+'].IsActive' }, value: isActive" />
+    </div>
+
+    <div class="form-actions">
+        <input class="btn btn-primary" type="submit" value="Save Survey" />
+        <a class="btn  btn-secondary" href="@Url.Action("Index")">Cancel</a>
+    </div>
+</form>
+
+<div id="add-question" class="modal hide fade" data-bind="with: current">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Add Question</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="Title">Title</label>
+                        <input type="text" id="Title" name="Title" data-bind="value: title" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Type">Type</label>
+                        <select id="Type" name="Type" data-bind="value: type">
+                            <option>Yes/No</option>
+                            <option>Number</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row no-gutters" >
+                    <textarea id="Body" class="text-area-250 min-w-100" name="Body" data-bind="value: body"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bind="click: $root.saveQuestion">Save</button>
+                <button class="btn" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#StartDate, #EndDate').datepicker({
+            dateFormat: "yy-mm-dd",
+            showStatus: true,
+            showWeeks: true,
+            currentText: 'Now',
+            autoSize: true,
+            gotoCurrent: true,
+            showAnim: 'blind',
+            highlightWeek: true
+        });
+    });
+
+
+</script>

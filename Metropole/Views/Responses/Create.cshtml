@@ -1,0 +1,159 @@
+﻿@model  Metropole.Helpers.Survey
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function() {
+
+            $(document).on('click', 'a[data-toggle=comment]', function() {
+                var id = $(this).attr('href');
+                $(id).toggle();
+                return false;
+            });
+
+            var formValidation = function (event) {
+                //alert('formValidation');
+
+                var invalid = false;
+                $("select.question-answer-item").each(function () {
+                    if ($(this)[0].selectedIndex == 0) {
+                        invalid = true;
+                        $(this).addClass('survey-validation-error');
+                    }
+                    else {
+                        $(this).removeClass('survey-validation-error');
+                    }
+                });
+
+                $(".number.question-answer-item").each(function () {
+                    if ($(this).val() == "") {
+                        invalid = true;
+                        $(this).addClass('survey-validation-error');
+                    }
+                    else {
+                        $(this).removeClass('survey-validation-error');
+                    }
+                });
+
+
+                if (invalid) {
+                    $('.form-validation-summary').show();
+                    event.preventDefault();
+                    return false;
+                }
+                $('.form-validation-summary').hide();
+               
+            };
+
+            var controlValidation = function (event) {
+
+                //control to validate.
+                var self$ = $(this);
+
+                var invalid = false;
+                $("select.question-answer-item").each(function () {
+                    if (!self$.is($(this))) return;
+
+                    if ($(this)[0].selectedIndex == 0) {
+                        invalid = true;
+                        $(this).addClass('survey-validation-error');
+                    }
+                    else {
+                        $(this).removeClass('survey-validation-error');
+                    }
+                });
+
+                $(".number.question-answer-item").each(function () {
+                    if (!self$.is($(this))) return;
+
+                    if ($(this).val() == "") {
+                        invalid = true;
+                        $(this).addClass('survey-validation-error');
+                    }
+                    else {
+                        $(this).removeClass('survey-validation-error');
+                    }
+                });
+
+
+                if (invalid) {
+                    $('.form-validation-summary').show();
+                    event.preventDefault();
+                    return false;
+                }
+                $('.form-validation-summary').hide();
+
+            };
+
+
+            // Form validation
+            $(".btn-save").click(formValidation);
+
+            var alpha = /[ A-Za-z]/;
+            var numeric = /[0-9]/;
+            var alphanumeric = /[ A-Za-z0-9]/;
+
+            var valKeyPress = function validateKeypress(event) {
+                var keyChar = String.fromCharCode(event.which || event.keyCode);
+                return numeric.test(keyChar) ? keyChar : false;
+            }
+
+
+            $(".number.question-answer-item").on("keypress",valKeyPress);
+            $(".number.question-answer-item").on("keyup", controlValidation);
+            $("select.question-answer-item").on("change", controlValidation)
+        });
+    </script>
+}
+
+<div class="page-header">
+    <h3>@ViewBag.Title</h3>
+</div>
+
+<form action="@Url.Action("Create", "Responses", new {surveyId = Request["surveyId"]})" method="post">
+    <div class="well well-small">
+        <h4>Questions</h4>
+    </div>
+    <div class="form-validation-summary field-validation-error hide">
+        Please answer all questions before saving. 
+    </div>
+
+    <div class="questions">
+        @foreach (var question in Model.Questions)
+        {
+            <div class="question row">
+                <div class="question-part col-md-9">
+                    <input type="hidden" name="Answers.Index" value="@question.Id" />
+                    <input type="hidden" name="Answers[@question.Id].QuestionId" value="@question.Id" />
+                    @Html.Raw(question.Body)
+                </div>
+                <div class="question-answer col-md-3">
+                    @if (question.Type == "Yes/No")
+                    {
+                        <select class="question-answer-item min-w-100" name="Answers[@question.Id].Value">
+                            <option disabled selected>Select a value...</option>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                    }
+                    @if (question.Type == "Number")
+                    {
+                        <input class="number question-answer-item min-w-100" type="text" name="Answers[@question.Id].Value" placeholder="Enter a number..." />
+                    }
+                    <textarea id="@("comment" + question.Id)" class="min-w-100 question-answer-item hide" name="Answers[@question.Id].Comment" placeholder="Comments..."></textarea>
+                    <a href="@("#comment" + @question.Id)" class="min-w-100 question-answer-item" data-toggle="comment"><small>Show/Hide Comment</small></a>
+                </div>
+            </div>
+        }
+    </div>
+    
+    <div class="form-actions">
+       
+        <input class="btn-save btn btn-primary" type="submit" name="action" value="Save" />
+        <a class="btn btn-secondary" href="@Url.Action("Index", "Surveys")">Cancel</a>
+    </div>
+</form>

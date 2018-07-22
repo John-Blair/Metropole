@@ -19,7 +19,34 @@ namespace Metropole.Helpers
         {
         }
 
-       
+        private bool _TotalUnitsInit;
+        private int _TotalUnits;
+        public int TotalUnits
+        {
+            get
+            {
+                if (!_TotalUnitsInit)
+                {
+                    _TotalUnitsInit = true;
+                    var totalUnits = settingCollection["TotalUnits"] ?? "";
+                    if (!string.IsNullOrEmpty(totalUnits))
+                    {
+                        _TotalUnits = Convert.ToInt32(totalUnits);
+                    }
+                }
+                return _TotalUnits;
+            }
+        }
+
+        public int Quorum
+        {
+            get
+            {
+                // Needs to be a third rounded up to whole units.
+                return (TotalUnits +2 ) / 3 ;
+            }
+        }
+
 
         private bool _DebugMenuInit;
         private bool _DebugMenu;

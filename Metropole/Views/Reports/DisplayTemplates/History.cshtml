@@ -1,0 +1,54 @@
+﻿@model List<Metropole.Helpers.Response>
+
+<h4 class="well well-small">Audit of Flat Responses</h4>
+
+@if (Model.Any())
+{
+    var count = 0;
+    <div class="history">
+        <div class="row">
+            <div class="col-md-1 ">
+                Id
+            </div>
+            <div class="col-md-3 ">
+                Date
+            </div>
+            <div class="col-md-4 ">
+                Who
+            </div>
+            <div class="col-md-4 ">
+                Response Detail<br/>
+                Yes/No Summary
+            </div>
+        </div>
+
+                @foreach (var item in Model)
+                {
+                    count++;
+                    
+                    
+
+
+                    <div class="row">
+                        <div class="col-md-1 ">
+                           @count
+                        </div>
+                        <div class="col-md-3 ">
+                            @item.CreatedOn.ToString("d")
+                        </div>
+                        <div class="col-md-4 ">
+                            @item.CreatedBy 
+                        </div>
+                        <div class="col-md-4 ">
+                            <a href="@Url.Action("Details", "Responses", new {surveyId = item.SurveyId, id = item.Id})">
+                               @item.GetYesNoAnswerCount()/@item.GetYesNoQuestionCount() - @item.CalculateScore().ToString("P1")
+
+
+                            </a>
+
+                        </div>
+                    </div>
+                }
+
+        </div>
+}

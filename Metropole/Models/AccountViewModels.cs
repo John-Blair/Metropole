@@ -81,6 +81,13 @@ namespace Metropole.Models
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+
+        [Required]
+        [Display(Name = "Name")]
+        [StringLength(25, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
+        public string Name { get; set; }
+
+
         [Display(Name = "Add My Phone Number to the \"Metropole\" WhatsApp group")]
         public bool WhatsAppMember { get; set; }
 
@@ -88,7 +95,7 @@ namespace Metropole.Models
         [RegularExpression(@"^(\d{11})$", ErrorMessage = "Mobile numbers should be 11 digits.")]
         public string PhoneNumber { get; set; }
 
-        [Display(Name = "Subscribe to \"Metropole\" news articles.")]
+        [Display(Name = "Subscribe to Surveys")]
         public bool NewsSubscription { get; set; }
 
 

@@ -193,7 +193,8 @@ namespace Metropole.Controllers
                     PhoneNumber = model.PhoneNumber,
                     WhatsAppMember = model.WhatsAppMember,
                     NewsSubscription = model.NewsSubscription,
-                    AddressId = Convert.ToInt32(model.AddressId)
+                    AddressId = Convert.ToInt32(model.AddressId),
+                    Name=model.Name
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

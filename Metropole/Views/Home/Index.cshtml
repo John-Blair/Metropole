@@ -6,10 +6,14 @@
     <div class="hero-action col-md-6">
 
         <h1>Metropole</h1>
-        <p class="lead">A site for residents to share information.</p>
+        <p class="lead">A site for residents to communicate.</p>
         <p>
 
-            @Html.ActionLink("Register »", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary btn-lg" })
+            @Html.ActionLink("Register »", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary mt-2  " })
+            @Html.ActionLink("Take Survey »", "Index", "Surveys", routeValues: null, htmlAttributes: new { id = "surveyLink", @class = "btn btn-primary mt-2" })
+            @Html.ActionLink("Survey Results»", "Index", "Reports", routeValues: null, htmlAttributes: new { id = "reportsLink", @class = "btn btn-primary mt-2" })
+
+
 
 
 
