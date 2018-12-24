@@ -25,10 +25,6 @@ namespace Metropole.Controllers
         }
 
 
-
-
-        //
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

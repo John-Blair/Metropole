@@ -5,8 +5,11 @@
     ViewBag.Title = "Surveys";
     var userId = User.Identity.GetUserId();
 
-    // Allow edit and delete if user owns survey and no responses.
-    var anyEditOrDelete = Model.Any(m => m.CreatedByUserId == userId && (m.Responses.Count() == 0));
+    var isAdmin = Request["a"] == EnvironmentSecret.Instance.AdminKey;
+
+
+    // Allow edit and delete if user owns survey and no responses OR admin mode.
+    var anyEditOrDelete = Model.Any(m => m.CreatedByUserId == userId && (m.Responses.Count() == 0)) || isAdmin;
 }
 
 @section scripts
@@ -15,7 +18,7 @@
 
     <script type="text/javascript">
         $(function () {
-            ko.applyBindings(new SurveyListModel(), $('#survey-list')[0]);
+            ko.applyBindings(new SurveyListModel(), $('.survey-list')[0]);
         })
     </script>
 }
@@ -63,7 +66,7 @@
                     else
                     {
                         <text> Question</text>
-}
+                    }
 
                 </div>
             </div>
@@ -74,7 +77,8 @@
             @if (anyEditOrDelete)
             {
                 <div class="col-md">
-                    @if (item.CreatedByUserId == userId && (item.Responses.Count() == 0))
+                    @if ((item.CreatedByUserId == userId && (item.Responses.Count() == 0))
+                        || isAdmin)
                     {
                         <a class="btn btn-secondary" href="@Url.Action("Edit", new { id = item.Id })">
                             <i class="fas fa-edit"></i> Edit
@@ -108,8 +112,9 @@
             @if (anyEditOrDelete)
             {
                 <div class="col-md">
-                    @if (item.CreatedByUserId == userId && (item.Responses.Count() == 0))
-                    {
+                   @if ((item.CreatedByUserId == userId && (item.Responses.Count() == 0))
+                         || isAdmin)
+                   {
                         <a class="btn btn-secondary" href="@Url.Action("Delete", new { id = item.Id })" data-bind="click: destroy">
                             <i class="fas fa-trash"></i> Delete
                         </a>

@@ -25,9 +25,8 @@ namespace Metropole
 
             return Task.Run(() =>
             {
-                
 
-
+                // Use google mail provider.
                 GMailService.SendMail(message.Destination, message.Subject, message.Body);
             });
         }

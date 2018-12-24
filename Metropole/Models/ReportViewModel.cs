@@ -10,14 +10,21 @@ namespace Metropole.Models
     using System.Collections.Generic;
     using System.Linq;
     /// <summary>
-    /// Report is: Survey with all the Responses.
+    /// Report is: Survey with all the Responses i.e. Questions + all the Answers.
     /// </summary>
     public class ReportViewModel
     {
+        // Create a report for this survey.
         public Survey Survey { get; set; }
 
+        // Flat responses allows for 1 response per flat.
+        // Multiple registered users per flat - last response is the one used.
         public int FlatResponses { get; set; }
+
+        // TBD: Commercial units excluded.
         public int TotalFlats { get; set; }
+
+        // A response from a third of total flats is required to form a quorum.
         public int Quorum { get; set; }
         public bool QuorumStatus
         {
@@ -25,7 +32,7 @@ namespace Metropole.Models
         }
 
 
-
+        // Survey Questions - each question has all the answers given.
         public List<QuestionViewModel> Questions { get; set; }
     }
 
@@ -42,7 +49,7 @@ namespace Metropole.Models
         public string Body { get; set; }
 
         /// <summary>
-        /// Type of Question
+        /// Type of Question only Yes/No and Number types supported.
         /// </summary>
         public string Type { get; set; }
 
@@ -51,6 +58,10 @@ namespace Metropole.Models
         /// </summary>
         public List<Answer> Answers { get; set; }
 
+        /// <summary>
+        /// For yes/no questions: score gives the number of Yes answers.
+        /// Otherwise: sum of individual answers numbers.
+        /// </summary>
         public int Score
         {
             get
@@ -72,11 +83,14 @@ namespace Metropole.Models
             }
         }
 
+
+        // Total number of answers to the question.
         public int Total
         {
             get { return Answers.Count(); }
         }
 
+        // Percentage of yes answers.
         public double Percentage
         {
             get { return (double)Score / (double)Total; }

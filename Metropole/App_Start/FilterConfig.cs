@@ -7,6 +7,8 @@ namespace Metropole
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            // With custom errors on this displays the error.cshtml view on unhandled 500+ errors.
+            // Does not affect 404 errors.
             filters.Add(new HandleErrorAttribute());
         }
     }

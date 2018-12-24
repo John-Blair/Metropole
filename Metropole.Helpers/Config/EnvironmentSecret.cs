@@ -68,6 +68,19 @@ namespace Metropole.Helpers
             }
         }
 
+
+        private string _AdminKey;
+        public string AdminKey
+        {
+            get
+            {
+                return _AdminKey ??
+                    (_AdminKey = settingCollection["AdminKey"] ?? "");
+            }
+        }
+
+
+
         private EnvironmentSecret()
         {
 

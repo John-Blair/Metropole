@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Metropole;
 
-namespace SurveyTool.Controllers
+namespace Metropole.Controllers
 {
     [Authorize]
     public class ResponsesController : Controller
@@ -129,7 +129,10 @@ namespace SurveyTool.Controllers
             var response = new Response() { Id = id, SurveyId = surveyId };
             _db.Entry(response).State = EntityState.Deleted;
             _db.SaveChanges();
-            return Redirect(returnTo ?? Url.RouteUrl("Default"));
+            TempData["success"] = "Your response was successfully deleted!";
+
+            var url = Url.Action("Survey", "Reports", new { id = surveyId });
+            return Json(url);
         }
     }
 }

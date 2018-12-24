@@ -76,3 +76,13 @@
        @Html.DisplayFor(x => x.Survey.Responses, "History")
     </div>
 </div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/models")
+
+    <script type="text/javascript">
+        $(function () {
+            ko.applyBindings(new HistoryModel(), $('.history')[0]);
+        })
+    </script>
+}

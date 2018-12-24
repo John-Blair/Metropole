@@ -2,8 +2,11 @@
 
 <h4 class="well well-small">Audit of Flat Responses</h4>
 
+
 @if (Model.Any())
 {
+    var isAdmin = Request["a"] == EnvironmentSecret.Instance.AdminKey;
+
     var count = 0;
     <div class="history">
         <div class="row">
@@ -40,11 +43,15 @@
                             @item.CreatedBy 
                         </div>
                         <div class="col-md-4 ">
-                            <a href="@Url.Action("Details", "Responses", new {surveyId = item.SurveyId, id = item.Id})">
+                            <a class="mr-2" href="@Url.Action("Details", "Responses", new {surveyId = item.SurveyId, id = item.Id})">
                                @item.GetYesNoAnswerCount()/@item.GetYesNoQuestionCount() - @item.CalculateScore().ToString("P1")
-
-
                             </a>
+                            @if (isAdmin)
+                            {<br/>
+                                <a class="btn btn-secondary" href="@Url.Action("Delete","Responses",  new {surveyId = item.SurveyId, id = item.Id})" data-bind="click: destroy">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            }
 
                         </div>
                     </div>
